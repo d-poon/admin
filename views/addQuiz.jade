@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	h1 Create a quiz
+		form(name="addQuiz", method="post", action="/postquiz")
+			p Quiz Name:
+			input(type="text", placeholder="Quiz name", name="quizName")
+			p Tour:
+			input(type="text", placeholder="Tour name", name="tourName")
+			p
+			
+			input(type="text", placeholder="Question", name="question")
+			p
+			button(type="submit") Submit

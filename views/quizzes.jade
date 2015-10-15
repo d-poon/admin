@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1 Quizzes
+  table(border="1")
+    tr
+      td Quiz
+      td Tour
+    for quiz in quizzes
+      tr
+        td= quiz.name
+        td= quiz.tour
+  
+  
+  br
+  a(href='/addQuiz') Add Quiz
+  
