@@ -1,0 +1,119 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Civil Engineering Tour - Quizzes</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/admin.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+        <script src="/javascripts/jquery-2.1.4.js"></script>
+        <script src="/javascripts/Quiz.js"></script>
+        <script src="/javascripts/quizHelper.js"></script>
+<style type="text/css">
+.header {
+height: 70px;
+}
+
+#Content_Area {
+	overflow-y: auto;
+}
+
+#tempQuestion {
+	padding: 3%;
+	color: blue;
+	display: table;
+	width: 80%;
+	height: 50%;
+	border: 1px solid gray;
+	border-collapse: separate;
+	background-color: #e6e6e6;
+}
+
+.questions {
+	padding: 3%;
+	margin-bottom: 2%;
+	border: 1px solid black;
+	border-radius: 3% 3% 3% 3%;
+	width: 80%;
+	height: 10%;
+	display: table-header-group;
+} 
+
+.answer {
+	padding: 3%;
+	border: 1px solid gray;
+	background-color: #bfbfbf;
+	border-radius: 3% 3% 3% 3%;
+	width: 40%;
+	height: 20%;
+	display: inline-block;
+} 
+
+.submittedQs {
+	display: inline-block;
+}
+</style>
+    </head>
+    <body>
+	<div class="header">
+		<img src='/images/csuslogo.png'></img>
+	</div>
+	<nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/viewSites">Tour Sites</a></li>
+            <li><a href="/viewTours">Tours</a></li>
+            <li><a href="/viewQuizzes">Quizzes</a></li>
+            <li><a href="/viewSurveys">Surveys</a></li>
+            <li><a href="/viewStatistics">Statistics</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+		<div class="Content_Area">
+			<p> Quizzes are here. Should display the scrolling list of database entries similar to tour sites/tours. Separate "Add quiz" button could bring up Dennis's cool stuff!</p>
+			
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="quiz">
+            <div id="initQuiz">
+			<form>
+				<div class="form-group">
+					<label for="quizName1">Quiz Name</label>
+					<input type="text" class="form-control" id="quizName" placeholder="Quiz Name" style="width:20%">
+				</div>
+				<div class="form-group">
+					<label for="toudID1">Tour Link ID</label>
+					<input type="text" class="form-control" id="tourID" placeholder="Tour ID No." style="width:20%">
+				</div>
+  
+				<input class="btn btn-default" type="button" value="Submit" id="newQuiz">
+                </form>
+            </div>
+            <div id="questions">
+
+            </div>
+        </div>
+		</div>
+<div class="footer">
+	<p>Copyright Alpha Squad 2015. Please don't sue us, Sac State.</p>
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    </body>
+</html>

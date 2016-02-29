@@ -1,0 +1,60 @@
+body {
+	overflow: hidden;
+	background: #011e14 url('http://www.csus.edu/Monet/Images/global/background.gif') repeat-x top;
+	}
+
+p { 
+	padding-left: 15px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+.footer {
+	width: 50%;
+	margin: auto;
+	background-color: #f0f0f0;
+	border: 2px solid gray;
+	text-align: center;
+}
+
+.Content_Area {
+padding: .5em .5em .5em .5em;
+top: 0; left: 0; bottom: 0; right: 0;
+clear:both;
+overflow:hidden;
+line-height:19px;
+position: relative;
+z-index: 5;
+width: 100%;
+height: 34.5em;
+overflow: hidden;
+background-color: #E1CF99;
+border: 1px solid black;
+margin: 0px 0px 0px 0px;
+}
+
+thead tr th { 
+    height: 30px;
+    line-height: 30px;
+    /* text-align: left; */
+}
+
+.scroll {
+    height: 45%;
+    overflow-y: auto;
+    overflow-x: hidden;
+	margin-bottom: 2%;
+}
+
+
+tbody td, thead th {
+    width: 20%;
+    border-right: 1px solid black;
+    white-space: nowrap;
+}
+
+tbody td:last-child, thead th:last-child {
+    border-right: none;
+}

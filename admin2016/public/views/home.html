@@ -1,0 +1,57 @@
+<style>
+	.Content_Area {
+	  clear: both;
+	}
+	#slideShowImages { /* The following CSS rules are optional. */
+		border: 1px gray solid;
+		background-color: white;
+		position: relative;
+		clear: right;
+		margin: auto;
+		width: 50%;
+		height: 70%;
+		display: none;
+		float: right;
+		top: 0; left: 0; bottom: 0; right: 0;
+		padding: 10% 10% 10% 10%;
+	}     
+	#slideShowImages img { /* The following CSS rules are optional. */
+		border: 1px lightgray solid;
+		margin: auto;
+		position: absolute;
+		top: 0; left: 0; bottom: 0; right: 0;
+		max-height: 100%;
+		max-width: 100%;
+	}
+	#descText {
+		display: inline-block;
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+		float: left;
+		width: 50%;
+		height: 29.5em;
+	}
+</style>
+		
+<div class="Content_Area">
+	<div id="descText">
+		<p>The purpose of our app is to provide users with a tour of the CSUS campus’ various civil structural components. The tours will guide users from location to location and upon arrival at each go into interesting detail about them. These tours will be available for students and visitors to campus, both engineers and those from a nontechnical background who may just be interested. The tour will change its information based on which type of user is taking the tour. The Civil Engineering department professors will be able to use built in quiz functions as supplemental homework assignments.</p>
+		<p>Use this administrator portal to edit various aspects of the app. The tab bar located at the top of each page will allow you to access different sections of the portal.</p>
+		{{siteData}}
+	</div>
+	
+	<div id="slideShowImages">
+		<img src="/img/sites/slide1.jpg" alt="Alpha" />
+		<img src="/img/sites/slide2.jpg" alt="Lambda" />
+		<img src="/img/sites/slide3.jpg" alt="Rho" />    
+		<img src="/img/sites/slide4.jpg" alt="Eta" />
+		<img src="/img/sites/slide5.jpg" alt="Alpha"   />
+	</div>  
+	<script>
+		$(document).ready(function() {
+			$('#slideShowImages').fadeIn(4000)
+		});
+	</script>
+	<script src="/js/slideShow.js"></script>
+</div>
