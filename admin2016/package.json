@@ -3,6 +3,9 @@
   "main": "server.js",
   "private": true,
   "license": "MIT",
+  "engines": {
+    "node": "4.1.1"
+  },
   "scripts": {
     "start": "node server.js"
   },
@@ -10,10 +13,21 @@
 	"angular": "*",
     "angular-route": "^1.4.8",
     "body-parser": "^1.14.1",
-    "ejs": "^2.3.4",
     "express": "^4.13.3",
-    "mongoose": "~3.6.13",
+	"mongodb": "~2.0.45",
+    "mongoose": "~4.1.10",
 	"morgan": "*",
-	"debug": "~2.2.0"
+	"debug": "~2.2.0",
+	"fs": "0.0.2",
+	"multer": "1.1.0",
+	"express-jwt": "^3.3.0",
+    "jsonwebtoken": "^5.7.0",
+	"passport" : "~0.1.17",         
+    "passport-local" : "~0.1.6", 
+	"connect-flash" : "~0.1.1",     
+    "bcrypt-nodejs" : "latest",
+	"cookie-parser": "~1.0.0",
+    "method-override": "~1.0.0",
+    "express-session": "~1.0.0"   
   }
 }

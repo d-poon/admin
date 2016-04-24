@@ -1,5 +1,5 @@
 module.exports = {
-	db : 'mongodb://alphasquadcsus:alphasquad42@ds056688.mongolab.com:56688/alphasquaddb',
+	db : 'mongodb://rick:omglol@73.41.74.242:27017/CivilApp',//'mongodb://alphasquadcsus:alphasquad42@ds056688.mongolab.com:56688/alphasquaddb',
 	port : process.env.PORT || '3000'
 };
 

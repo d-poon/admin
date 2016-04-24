@@ -1,0 +1,43 @@
+<div>
+	<ul class="sub-nav menu" role="navigation">
+		<li class="active"><slian class="show-for-sr"></slian><a href="/quiz/view">View Quizzes</a></li>
+		<li><a href="/quiz/add">Add a Quiz</a></li>
+	</ul>
+	<div>
+		<ul><h3>Quizzes</h3>
+			<li ng-repeat="quiz in quizData">
+				<a href="" ng-click="showing = !showing">Quiz Name: {{quiz.name}}</a>
+				<table border="5" border-style="solid" ng-show="showing">
+					<tr>
+						<td>Quiz Name:</td>
+						<td>{{quiz.name}}</td>
+					</tr>
+					<tr>
+						<td>Question:</td>
+						<td>{{quiz.questions.question}}</td>
+					</tr>
+					<tr>
+						<td>						
+							Answer Choices:
+						</td>
+						<td>
+							<ul ng-repeat="choice in quiz.questions.options">
+								<li>Answer {{$index+1}}: {{choice}}</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<td>Correct Answer Number:</td>
+						<td>{{quiz.questions.answer}}</td>
+					</tr>
+					<tr>
+						<td>Question Hint:</td>
+						<td>{{quiz.questions.hint}}</td>
+					</tr>
+				</table>
+				<button style="border:1px solid;" type="button" ng-click="editQuiz(quiz)">Edit Quiz</button>
+				<button style="border:1px solid;" type="button" ng-click="removeQuiz(quiz._id)">Delete Quiz</button>
+			</li>
+		</ul>
+	</div>
+</div>

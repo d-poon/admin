@@ -1,0 +1,75 @@
+
+<div>
+	<link rel="stylesheet" href="css/foundation.css" />
+	<link rel="stylesheet" href="css/app.css" />
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/what-input.min.js"></script>
+	<script src="lib/foundation.min.js"></script>
+	<script src="js/app.js"></script>
+	
+	<ul class="sub-nav menu" role="navigation">
+		<li class="active"><span class="show-for-sr"></span><a href="/site/view">View Tour Sites</a></li>
+		<li><a href="/site/add">Add a Tour Site</a></li>
+	</ul>
+	<div>
+		<ul><h3>Sites</h3>
+			<li ng-repeat="site in siteData">	
+				<a href="" ng-click="showing = !showing">Site Name: {{site.title}}</a>
+				<table border="5" border-style="solid" width="400" ng-show="showing">
+					<tr>
+						<td width="150">Site Name:</td>
+						<td>{{site.title}}</td>
+					</tr>
+					<tr>
+						<td width="150">Type:</td>
+						<td>
+							<div ng-repeat="t in site.tourtype">{{t}}</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Latitude:</td>
+						<td>{{site.lat}}</td>
+					</tr>
+					<tr>
+						<td>Longitude:</td>
+						<td>{{site.lon}}</td>
+					</tr>
+					<tr>
+						<td>Description:</td>
+						<td>{{site.description}}</td>
+					</tr>
+					<tr>
+						<td>Technical Info:</td>
+						<td>{{site.technicaldescription}}</td>
+					</tr>
+					<tr>
+						<td>Average Rating:</td>
+						<td>{{site.rating}}</td>
+					</tr>
+
+					<tr>
+						<td>Attached Quiz ID:</td>
+						<td>{{site.idno}}</td>
+					</tr>
+					
+					<tr>
+						<td>Images:</td>
+						<td colspan="3" ng-repeat="img in site.pics">
+							<img src={{img.src}} width="400" height="400">
+							<label>Image Source:{{img.src}}</label>	
+							<label>Image Description:</label>
+							<p>{{img.description}}</p>
+							<label>Image Technical Description:</label> 
+							<p>{{img.technicaldescription}}</p>
+						</td>
+					</tr>
+				</table>
+				<button style="border:1px solid;" type="button" ng-click="editSite(site)">Edit Site</button>
+				<button style="border:1px solid;" type="button" ng-click="removeSite(site.title)">Delete Site</button>
+				<br>
+			</li>
+		</ul>	
+		{{msg}}
+	</div>	
+</div>	
+	

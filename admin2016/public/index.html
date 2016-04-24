@@ -8,55 +8,42 @@
 		<title>Civil Engineering Tour - Home</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="/css/admin.css">
-		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-		<script src="/lib/jquery-2.1.4.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			
+		<link rel="stylesheet" type="text/css" href="css/foundation.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		
+		<script src="lib/jquery.min.js"></script>
+		<script src="lib/what-input.min.js"></script>
+		<script src="lib/foundation.min.js"></script>
+		<script src="js/app.js"></script>
+		
 		<script src="lib/angular/angular.min.js"></script>
-		<script src="lib/angular-route/angular-route.min.js"></script>
+		<script src="lib/angular-route/angular-route.min.js"></script>	
+				
+		<!-- Angular-->
 		<script src="js/angular/controllers.js"></script>
 		<script src="js/angular/services.js"></script>
 		<script src="js/angular/core.js"></script>
 		
-		<!--Location Provider base link-->
+		<!--Location Provider base link	-->
 		<base href="/">
-		
 	</head>
 
-	<body ng-controller="mainCtrl">
-		<div class="header">
+	<body>
+		<div>
 			<img src='/img/csuslogo.png'></img>
 		</div>
-		<nav class="navbar navbar-default navbar-static-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="/">Home</a></li>
-						<li><a href="/viewSites">Tour Sites</a></li>
-						<li><a href="/viewTours">Tours</a></li>
-						<li><a href="/addQuiz">Quizzes</a></li>
-						<li><a href="/viewStatistics">Statistics</a></li>
-					</ul>
-				</div><!--/.nav-collapse -->
-			</div>
-		</nav>
-		<div ng-view></div>
-				
-		<div class="footer">
-			<p>Copyright Alpha Squad 2015. Please don't sue us, Sac State.</p>
-		</div>
-
+		<ul class="sub-nav menu" role="navigation">
+			<li class="active">
+				<span class="show-for-sr"></span><a href="/">Home</a>
+			</li>
+			<li><a href="/site/view">Tour Sites</a></li>
+			<li><a href="/quiz/view">Quizzes</a></li>
+			<li><a href="/user/view">Users</a></li>
+		</ul>
 		
-		<script src="/lib/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+		<!--Angular partial view-->
+		<div ng-view></div>
+		
 	</body>
 </html>

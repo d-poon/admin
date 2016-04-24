@@ -1,5 +1,5 @@
 body {
-	overflow: hidden;
+	overflow: scroll;
 	background: #011e14 url('http://www.csus.edu/Monet/Images/global/background.gif') repeat-x top;
 	}
 
@@ -23,7 +23,7 @@ p {
 padding: .5em .5em .5em .5em;
 top: 0; left: 0; bottom: 0; right: 0;
 clear:both;
-overflow:hidden;
+overflow:scroll;
 line-height:19px;
 position: relative;
 z-index: 5;
