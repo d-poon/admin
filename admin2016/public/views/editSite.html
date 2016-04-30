@@ -12,8 +12,7 @@
 		<li class="active"><a href="/site/edit">Edit a Site</a></li>
 	</ul>
 	<div>
-		<label>Name</label>
-		<!--<input type="text" placeholder="Tour Name" ng-model="formData.title">-->
+		<label>Name:</label>
 		<label>{{formData.title}}</label>
 
 		<fieldset class="fieldset">
@@ -48,8 +47,8 @@
 		<textarea placeholder="Technical Description" ng-model="formData.technical"></textarea>
 		
 		<label>Attached Quiz</label>
-		<select ng-model="quizID" ng-init="quizID = formData.idno">
-			<option value={{formData.idno}}>Keep Current Quiz with ID: {{formData.idno}}</option>
+		<select ng-model="quizID">
+			<option value={{formData.idno}}>Keep Current Quiz</option>
 			<option ng-repeat="quiz in quizData" value={{quiz._id}}>{{quiz.idno}}:{{quiz.name}}</option>
 		</select>
 		

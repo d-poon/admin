@@ -2,43 +2,57 @@
 	<ul class="sub-nav menu" role="navigation">
 		<li class="active"><span class="show-for-sr"></span><a href="/user/view">View Users</a></li>
 	</ul>
-	{{userData}}
 	<div>
-		<ul><h3>Users</h3>
-				<li ng-repeat="user in userData">	
-				<a href="" ng-click="showing = !showing">User Name: {{user.username}}</a>
-				<table border="5" border-style="solid" width="400" ng-show="showing">
-					<tr>
-						<td width="150">User Name:</td>
-						<td>{{user.username}}</td>
-					</tr>
-					<tr>
-						<td>Type</td>
-						<td>{{user.type}}</td>
-					</tr>
-					<tr>
-						<td>Company</td>
-						<td>{{user.company}}</td>
-					</tr>
-					<tr>
-						<td>Course</td>
-						<td>{{user.course}}</td>
-					</tr>
-					<tr>
-						<td>Quizzes</td>
-						<td>
-							<ul>
-								<li ng-repeat="quiz in user.quizzes">
-									<label>Quiz ID: {{quiz.quizId}}</label>
-									<label>Quiz Date: {{quiz.date}}</label>
-									<label>Quiz Score: {{quiz.score}}</label>
-									<label>Quiz Total: {{quiz.total}}</label>
-								</li>
-							</ul>
-						</td>
-					</tr>
-				</table>
-			</li>
-		</ul>	
+		<h3>Users</h3>
+		<table border="5" border-style="solid" table-layout="auto">
+			<tr>
+				<td align="center">
+					<a href="" ng-click="sortType='username'; sortReverse = !sortReverse">
+					User Name
+					</a>
+				</td>
+				<td align="center">
+					<a href="" ng-click="sortType='type'; sortReverse = !sortReverse">
+					Type
+					</a>
+				</td>
+				<td align="center">
+					<a href="" ng-click="sortType='company'; sortReverse = !sortReverse">
+					Company
+					</a>
+				</td>
+				<td align="center">
+					<a href="" ng-click="sortType='course'; sortReverse = !sortReverse">
+					Course
+					</a>
+				</td>
+				<td align="center">
+					Quizzes
+				</td>
+				<td>
+					<p align="center">Delete</p>
+					<input type="checkbox" ng-model="selectAll" ng-click="checkAll()"/>
+				</td>
+			</tr>
+			<tr ng-repeat="user in userData | orderBy:sortType:sortReverse">
+				<td>{{user.username}}</td>
+				<td>{{user.type}}</td>
+				<td>{{user.company}}</td>
+				<td>{{user.course}}</td>
+				<td>
+					<ul>
+						<li ng-repeat="quiz in user.quizzes">
+							<label>Quiz Name: {{quiz.name}}</label>
+							<label>Quiz Date: {{quiz.date}}</label>
+							<label>Quiz Score/Total: {{quiz.score}}/{{quiz.total}}</label>
+						</li>
+					</ul>
+				</td>
+				<td>
+					<input type="checkbox" ng-model="user.selected" />
+				</td>
+			</tr>
+		</table>
+		<input type="button" ng-click="deleteSelected()" value="Delete Selected"/>
 	</div>
 </div>

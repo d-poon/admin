@@ -13,18 +13,19 @@
     <form>
 		<label>Quiz Name:</label>
 		<input type="text" id="quizName" ng-model="formData.name">
-		
-		<div>
-			Question:<input type='text' ng-model="formData.question" id='question1'>
+		<div ng-repeat="q in formData.questions">
+			Question:<input type='text' ng-model="q.question" id='question1'>
 			Possible Answers:<br>
-			Answer 1: <input type='text' ng-model="formData.answer1" id='answer1'>
-			Answer 2: <input type='text' ng-model="formData.answer2" id='answer2'>
-			Answer 3: <input type='text' ng-model="formData.answer3" id='answer3'>
-			Answer 4: <input type='text' ng-model="formData.answer4" id='answer4'>
-			Answer 5: <input type='text' ng-model="formData.answer5" id='answer5'>
-			Answer key: <input type='number' min="1" max="5" id='answerKey' ng-model="formData.answerKey">
-			Hint: <input type='text' id='hint' ng-model="formData.hint">
+			Answer 1: <input type='text' ng-model="q.answer1" id='answer1'>
+			Answer 2: <input type='text' ng-model="q.answer2" id='answer2'>
+			Answer 3: <input type='text' ng-model="q.answer3" id='answer3'>
+			Answer 4: <input type='text' ng-model="q.answer4" id='answer4'>
+			Answer 5: <input type='text' ng-model="q.answer5" id='answer5'>
+			Answer key: <input type='number' min="1" max="5" id='answer' ng-model="q.answer">
+			Hint: <input type='text' id='hint' ng-model="q.hint">
 		</div>		
+		<input type="button" value="Add New Question" ng-click="addQuestion()">
+		<br></br>
 		<input type="button" value="Submit" id="newQuiz" ng-click="submitForm()">
 	</form>
 </div>

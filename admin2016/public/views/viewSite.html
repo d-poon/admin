@@ -13,7 +13,7 @@
 	</ul>
 	<div>
 		<ul><h3>Sites</h3>
-			<li ng-repeat="site in siteData">	
+			<li ng-repeat="site in siteData | orderBy:'title'">	
 				<a href="" ng-click="showing = !showing">Site Name: {{site.title}}</a>
 				<table border="5" border-style="solid" width="400" ng-show="showing">
 					<tr>
@@ -48,8 +48,8 @@
 					</tr>
 
 					<tr>
-						<td>Attached Quiz ID:</td>
-						<td>{{site.idno}}</td>
+						<td>Name of Attached Quiz:</td>
+						<td>{{site.quizName}}</td>
 					</tr>
 					
 					<tr>
@@ -69,7 +69,6 @@
 				<br>
 			</li>
 		</ul>	
-		{{msg}}
 	</div>	
 </div>	
 	

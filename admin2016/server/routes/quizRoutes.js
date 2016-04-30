@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Quiz = require('../models/quizzes.js');
+var ObjectID = require('mongodb').ObjectID;
 
 router.get('/view', function(req, res){ 
 	Quiz.find(function(err, quiz){
@@ -12,11 +13,11 @@ router.get('/view', function(req, res){
 });
 
 router.get('/viewOne/:quizID', function(req, res){
-	var qID = req.params.quizID; //Get _id of the quiz
+	var qID = new ObjectID(req.params.quizID); //Get _id of the quiz
 	Quiz.find({_id:qID}, function(err,quiz){
 		if(err)
 			res.send(err);
-		res.json(quiz);
+		res.send(quiz);
 	});
 });
 
@@ -24,14 +25,8 @@ router.post('/add', function(req, res){
 	var quiz = new Quiz(); //Make new quiz
 	
 	quiz.name = req.body.name; 
-	quiz.questions.question = req.body.question;
-	quiz.questions.options.push(req.body.answer1);
-	quiz.questions.options.push(req.body.answer2);
-	quiz.questions.options.push(req.body.answer3);
-	quiz.questions.options.push(req.body.answer4);
-	quiz.questions.options.push(req.body.answer5);
-	quiz.questions.answer = req.body.answerKey;
-	quiz.questions.hint = req.body.hint;
+	quiz.questions = req.body.questions;
+	
 	//Save to database
 	quiz.save(function(err){
 		if(err)

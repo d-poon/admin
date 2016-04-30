@@ -1,9 +1,18 @@
 angular.module('adminCtrl',[])
+	/*
+		Site Controllers
+	*/
 	.controller('siteViewCtrl', ['$scope', '$http', '$route', '$location', '$routeParams','Site', 'Share', 'Quiz', function($scope, $http, $route, $location, $routeParams, Site, Share, Quiz){
 		$scope.siteData = {};
 		Site.get()
 			.success(function(data){
 				$scope.siteData = data;
+				angular.forEach($scope.siteData, function(site){
+					Quiz.getOne((site.idno).toString())
+						.success(function(data){
+							site.quizName = data[0].name;
+						});
+				});
 			});
 
 		$scope.editSite = function(site){
@@ -111,6 +120,7 @@ angular.module('adminCtrl',[])
 				scopeTypes.lateral = true;
 			}
 		}
+		$scope.formData.idno = data.idno;
 		$scope.formData.title = data.title;
 		$scope.formData.types = scopeTypes;	
 		$scope.formData.lat = data.lat;
@@ -193,6 +203,9 @@ angular.module('adminCtrl',[])
 			$scope.quizID = {};
 		}
 	}])
+	/*
+		Quiz Controllers
+	*/
 	.controller('quizViewCtrl', ['$scope', '$http', '$route', '$location', 'Quiz','Share', function($scope, $http, $route, $location, Quiz, Share){
 		$scope.quizData = {};
 		Quiz.get()
@@ -210,8 +223,23 @@ angular.module('adminCtrl',[])
 	}])
 	.controller('quizAddCtrl', ['$scope', '$http', 'Quiz', function($scope, $http, Quiz){
 		$scope.formData = {};
+		$scope.formData.questions = [];
+		
+		$scope.addQuestion = function(){
+			$scope.formData.questions.push({});		
+		}
+		
 		$scope.submitForm = function() {
-			Quiz.create($scope.formData);
+			var data = $scope.formData;
+			for(var i = 0; i < data.questions.length; i++){
+				data.questions[i].options = [];
+				data.questions[i].options.push(data.questions[i].answer1);
+				data.questions[i].options.push(data.questions[i].answer2);
+				data.questions[i].options.push(data.questions[i].answer3);
+				data.questions[i].options.push(data.questions[i].answer4);
+				data.questions[i].options.push(data.questions[i].answer5);
+			}
+			Quiz.create(data);
 			$scope.formData = {};	
 		}
 	}])
@@ -220,41 +248,54 @@ angular.module('adminCtrl',[])
 		var data = Share.get();
 		$scope.quizData._id = data._id
 		$scope.quizData.name = data.name;
-		$scope.quizData.question = data.questions.question;
-		$scope.quizData.answer1 = data.questions.options[0];
-		$scope.quizData.answer2 = data.questions.options[1];
-		$scope.quizData.answer3 = data.questions.options[2];
-		$scope.quizData.answer4 = data.questions.options[3];
-		$scope.quizData.answer5 = data.questions.options[4];
-		$scope.quizData.answerKey = data.questions.answer;
-		$scope.quizData.hint = data.questions.hint;
+		$scope.quizData.questions = data.questions;
+		
+		$scope.addQuestion = function() {
+			$scope.quizData.questions.push({});
+		}
+		
 		$scope.saveForm = function() {
 			var editData = $scope.quizData;
-			editData.questions = {};
-			var answerArr = [];
-			answerArr[0] = $scope.quizData.answer1;
-			answerArr[1] = $scope.quizData.answer2;
-			answerArr[2] = $scope.quizData.answer3;
-			answerArr[3] = $scope.quizData.answer4;
-			answerArr[4] = $scope.quizData.answer5;
-			
-			editData.questions.question = $scope.quizData.question;
-			editData.questions.options = answerArr;
-			editData.questions.answer = $scope.quizData.answerKey;
-			editData.questions.hint = $scope.quizData.hint;
-			
 			Quiz.update(editData);
-			
 			$scope.quizData = {};	
 		}
 	}])
-	.controller('userViewCtrl', ['$scope', '$http', '$route', '$location', 'User', function($scope, $http, $route, $location, User){
+	/*
+		User Controllers
+	*/
+	.controller('userViewCtrl', ['$scope', '$http', '$route', '$location', 'User','Quiz', function($scope, $http, $route, $location, User, Quiz){
 		$scope.userData = {};
+		$scope.sortType = 'username';
+		$scope.sortReverse = false;
+		
 		User.get()
 			.success(function(data){
 				$scope.userData = data;
+				angular.forEach($scope.userData, function(user){
+					angular.forEach(user.quizzes,function(quiz){
+						Quiz.getOne(quiz.quizId)
+							.success(function(data){
+								quiz.name = data[0].name;
+							});
+					});
+				});
 			});
+		
+		$scope.checkAll = function(){
+			if($scope.selectAll){
+				$scope.selectAll = true;
+			}else{
+				$scope.selectAll = false;
+			}
+			angular.forEach($scope.userData, function(user){
+				user.selected = $scope.selectAll;
+			});
+		}
 	}])
+	/*
+			File Model Directive
+	
+	*/
 	.directive('fileModel', ['$parse', function($parse){ //Directive for file upload taken from http://stackoverflow.com/questions/32957006/nodejs-multer-angularjs-for-uploading-without-redirecting
 		return {
 			restrict: 'A',

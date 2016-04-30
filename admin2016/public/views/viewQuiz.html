@@ -9,30 +9,17 @@
 				<a href="" ng-click="showing = !showing">Quiz Name: {{quiz.name}}</a>
 				<table border="5" border-style="solid" ng-show="showing">
 					<tr>
-						<td>Quiz Name:</td>
-						<td>{{quiz.name}}</td>
+						<td>Quiz Name: {{quiz.name}}</td>
 					</tr>
-					<tr>
-						<td>Question:</td>
-						<td>{{quiz.questions.question}}</td>
-					</tr>
-					<tr>
-						<td>						
-							Answer Choices:
-						</td>
+					<tr ng-repeat="q in quiz.questions">
 						<td>
-							<ul ng-repeat="choice in quiz.questions.options">
+							<label>Question: {{q.question}}</label>
+							<ul ng-repeat="choice in q.options">
 								<li>Answer {{$index+1}}: {{choice}}</li>
 							</ul>
+							<label>Correct Answer Number: {{q.answer}}</label>
+							<label>Question Hint: {{q.hint}}</label>
 						</td>
-					</tr>
-					<tr>
-						<td>Correct Answer Number:</td>
-						<td>{{quiz.questions.answer}}</td>
-					</tr>
-					<tr>
-						<td>Question Hint:</td>
-						<td>{{quiz.questions.hint}}</td>
 					</tr>
 				</table>
 				<button style="border:1px solid;" type="button" ng-click="editQuiz(quiz)">Edit Quiz</button>
