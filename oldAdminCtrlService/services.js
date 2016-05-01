@@ -1,6 +1,5 @@
 angular.module('adminService',[])
-	// Site Service
-	.factory('Site', ['$http', function($http){ 
+	.factory('Site', ['$http', function($http){
 		return {
 			get : function() {
 				return $http.get('/api/sites/view');
@@ -22,7 +21,6 @@ angular.module('adminService',[])
 			}
 		}
 	}])
-	// Share Data Service
 	.factory('Share', function(){
 		var savedData = {};
 		function set(data){
@@ -36,7 +34,6 @@ angular.module('adminService',[])
 			get: get
 		}
 	})
-	// Quiz Service
 	.factory('Quiz', ['$http', function($http){
 		return {
 			get : function() {
@@ -56,14 +53,10 @@ angular.module('adminService',[])
 			}
 		}
 	}])
-	// User Service
 	.factory('User', ['$http', function($http){
 		return {
 			get : function() {
 				return $http.get('/api/users/view');
-			},
-			remove : function(id){
-				return $http.delete('/api/users/remove/'+id);
 			}
 		}
 	}]);

@@ -2,7 +2,6 @@ angular.module('adminCtrl',[])
 	/*
 		Site Controllers
 	*/
-	// Site View Controller
 	.controller('siteViewCtrl', ['$scope', '$http', '$route', '$location', '$routeParams','Site', 'Share', 'Quiz', function($scope, $http, $route, $location, $routeParams, Site, Share, Quiz){
 		$scope.siteData = {};
 		Site.get()
@@ -25,7 +24,6 @@ angular.module('adminCtrl',[])
 			$route.reload();			
 		};
 	}])
-	// Site Add Controller
 	.controller('siteAddCtrl', ['$scope', '$http', 'Site', 'Quiz', function($scope, $http, Site, Quiz){
 		$scope.formData = {};
 		$scope.formData.picData = [];
@@ -96,7 +94,6 @@ angular.module('adminCtrl',[])
 		}
 		
 	}])
-	// Site Edit Controller
 	.controller('siteEditCtrl', ['$scope', '$http', '$filter', 'Site','Quiz', 'Share', function($scope,$http,$filter,Site,Quiz,Share){
 		$scope.formData = {};
 		var data = Share.get(); //From View Controller
@@ -209,7 +206,6 @@ angular.module('adminCtrl',[])
 	/*
 		Quiz Controllers
 	*/
-	// Quiz View Controller
 	.controller('quizViewCtrl', ['$scope', '$http', '$route', '$location', 'Quiz','Share', function($scope, $http, $route, $location, Quiz, Share){
 		$scope.quizData = {};
 		Quiz.get()
@@ -225,7 +221,6 @@ angular.module('adminCtrl',[])
 			$route.reload();			
 		};
 	}])
-	// Quiz Add Controller
 	.controller('quizAddCtrl', ['$scope', '$http', 'Quiz', function($scope, $http, Quiz){
 		$scope.formData = {};
 		$scope.formData.questions = [];
@@ -248,7 +243,6 @@ angular.module('adminCtrl',[])
 			$scope.formData = {};	
 		}
 	}])
-	// Quiz Edit Controller
 	.controller('quizEditCtrl', ['$scope', '$http', 'Quiz', 'Share', function($scope, $http, Quiz, Share){
 		$scope.quizData = {};
 		var data = Share.get();
@@ -269,13 +263,11 @@ angular.module('adminCtrl',[])
 	/*
 		User Controllers
 	*/
-	// User View Controller
 	.controller('userViewCtrl', ['$scope', '$http', '$route', '$location', 'User','Quiz', function($scope, $http, $route, $location, User, Quiz){
 		$scope.userData = {};
 		$scope.sortType = 'username';
 		$scope.sortReverse = false;
 		
-		// User get all users from server and fill in quiz names per user
 		User.get()
 			.success(function(data){
 				$scope.userData = data;
@@ -288,7 +280,7 @@ angular.module('adminCtrl',[])
 					});
 				});
 			});
-		// Function to check all checkboxes
+		
 		$scope.checkAll = function(){
 			if($scope.selectAll){
 				$scope.selectAll = true;
@@ -299,21 +291,12 @@ angular.module('adminCtrl',[])
 				user.selected = $scope.selectAll;
 			});
 		}
-		// Function to delete all selected users
-		$scope.deleteSelected = function(){
-			angular.forEach($scope.userData, function(user){
-				if(user.selected){
-					User.remove(user._id);
-				}
-			});
-			$route.reload();
-		}
 	}])
 	/*
 			File Model Directive
+	
 	*/
-	//Directive for file upload taken from http://stackoverflow.com/questions/32957006/nodejs-multer-angularjs-for-uploading-without-redirecting
-	.directive('fileModel', ['$parse', function($parse){ 
+	.directive('fileModel', ['$parse', function($parse){ //Directive for file upload taken from http://stackoverflow.com/questions/32957006/nodejs-multer-angularjs-for-uploading-without-redirecting
 		return {
 			restrict: 'A',
 			link: function(scope, element, attrs){
@@ -322,8 +305,7 @@ angular.module('adminCtrl',[])
 				element.bind('change', function(){
 					scope.$apply(function(){
 						modelSetter(scope, element[0].files[0]);
-						//Send filename to $scope.filenames array
-						scope.filenames.push(element[0].files[0].name); 
+						scope.filenames.push(element[0].files[0].name); //Send filename to $scope.filenames array
 					});
 				});			
 			}
