@@ -21,9 +21,9 @@
 		<script src="lib/angular-route/angular-route.min.js"></script>	
 				
 		<!-- Angular-->
-		<script src="js/angular/controllers.js"></script>
-		<script src="js/angular/services.js"></script>
-		<script src="js/angular/core.js"></script>
+		<script src="js/controllers.js"></script>
+		<script src="js/services.js"></script>
+		<script src="js/core.js"></script>
 		
 		<!--Location Provider base link	-->
 		<base href="/">
@@ -33,15 +33,28 @@
 		<div>
 			<img src='/img/csuslogo.png'></img>
 		</div>
-		<ul class="sub-nav menu" role="navigation">
-			<li class="active">
-				<span class="show-for-sr"></span><a href="/">Home</a>
-			</li>
-			<li><a href="/site/view">Tour Sites</a></li>
-			<li><a href="/quiz/view">Quizzes</a></li>
-			<li><a href="/user/view">Users</a></li>
-		</ul>
-		
+		<!-- Hides navigation if on root path, ie: login page -->
+		<div ng-show="isLoginPage != '/'">
+			<input type="button" value="Logout" style="color:white;background-color:green;float:right" ng-click="logout()"/>
+			<ul class="sub-nav menu" role="navigation"> 
+				<!-- ng-class calls $rootscope function activeClass to change active status of link -->
+				<li ng-class="activeClass('/home')">
+					<span class="show-for-sr"></span><a href="/home">Home</a>
+				</li>
+				<li ng-class="activeClass('/site/')">
+					<a href="/site/view">Tour Sites</a>
+				</li>
+				<li ng-class="activeClass('/quiz/')">
+					<a href="/quiz/view">Quizzes</a>
+				</li>
+				<li ng-class="activeClass('/user/')">
+					<a href="/user/view">Users</a>
+				</li>
+				<li ng-class="activeClass('/register/')">
+					<a href="/register/view">Admin</a>
+				</li>
+			</ul>
+		</div>
 		<!--Angular partial view-->
 		<div ng-view></div>
 		

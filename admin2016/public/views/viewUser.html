@@ -11,6 +11,11 @@
 					User Name
 					</a>
 				</td>
+				<td>
+					<a href="" ng-click="sortType='studentid'; sortReverse = !sortReverse">
+					Student ID
+					</a>
+				</td>
 				<td align="center">
 					<a href="" ng-click="sortType='type'; sortReverse = !sortReverse">
 					Type
@@ -36,6 +41,7 @@
 			</tr>
 			<tr ng-repeat="user in userData | orderBy:sortType:sortReverse">
 				<td>{{user.username}}</td>
+				<td>{{user.studentid}}</td>
 				<td>{{user.type}}</td>
 				<td>{{user.company}}</td>
 				<td>{{user.course}}</td>

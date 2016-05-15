@@ -1,14 +1,21 @@
 var express = require('express');
 var path = require('path');
-var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
 var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+
+var session = require('express-session');
+var passport = require('passport');
+var localStrategy = require('passport-local').Strategy;
+
+AdminUser = require('./server/models/AdminUser.js');
 
 var config = require('./config/serverConfig');
-var routes = require('./server/routes/index');
+var routes = require('./server/routes/index.js');
 
 var app = express();
-
 
 //Mongoose setup
 mongoose.connect(config.db, function(err){
@@ -19,20 +26,30 @@ mongoose.connect(config.db, function(err){
 	}
 });
 
-
-//Morgan
+//Environments
 app.use(morgan('dev'));
-//Body parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: false 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+
+app.use(session({
+	secret: 'adminSecured',
+	resave: false,
+	saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Set public folder as static path
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Routes
-app.use('/api', routes); //API routing
+//Passport config
+passport.use(new localStrategy(AdminUser.authenticate()));
+passport.serializeUser(AdminUser.serializeUser());
+passport.deserializeUser(AdminUser.deserializeUser());
+
+//Routes=============================
+app.use('/api', routes); 
 app.get('*', function(req,res){
 	res.sendFile('index.html');
 });

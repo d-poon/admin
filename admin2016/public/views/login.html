@@ -1,0 +1,18 @@
+<div>
+	<h3>Login</h3>
+	<div ng-show="error">
+		{{errorMessage}}
+	</div>
+	<form ng-submit="login()">
+		<label>Username</label>
+		<input type="text" placeholder="Username" ng-model="loginForm.username" />
+		<label>Password</label>
+		<input type="password" placeholder="Password" ng-model="loginForm.password"/><br/>
+		<input type="submit" value="Login" ng-disabled="disabled"/>
+	</form>
+	<br>
+	<div ng-show="noAdmin">
+		<label>No Admin Accounts Found!</label>
+		<a href="/register/add">Register New Admin Account</a>
+	</div>
+</div>

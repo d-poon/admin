@@ -1,0 +1,25 @@
+<div>
+	<ul class="sub-nav menu" role="navigation">
+		<li class="active"><a href="/register/view">Admin Accounts</a></li>
+		<li><slian class="show-for-sr"></slian><a href="/register/add">Register an Admin Account</a></li>
+	</ul>
+	<h3>View Admin Accounts</h3>
+	
+	<div>
+		<table>
+			<tr>
+				<td>Username</td>
+				<td>Change Password</td>
+				<td>Delete Account</td>
+			</tr>
+			<tr ng-repeat="admin in adminData">
+				<td>{{admin.username}}</td>
+				<td><input type="button" ng-click="update(admin)" value="Change Password" /></td>
+				<td><input type="button" ng-hide="adminCount <= 1" ng-click="removeAdmin(admin._id)" value="Delete" /></td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<label style="padding-left:1em">Note: If there is only one available admin account, deletion will be disabled.</label>
+	<label style="padding-left:3em">Also, passwords are not viewable so please remember your passwords, but you can always change it.</label>
+</div>

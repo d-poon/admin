@@ -10,6 +10,7 @@ var UserSchema = new Schema({
         unique: true
     },
     type: String,
+	studentid: Number,
     company: String,
     course: String,
     quizzes: [{

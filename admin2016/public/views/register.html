@@ -1,0 +1,19 @@
+<div>
+	<ul class="sub-nav menu" role="navigation">
+		<li><a href="/register/view">Admin Accounts</a></li>
+		<li class="active"><slian class="show-for-sr"></slian><a href="/register/add">Register an Admin Account</a></li>
+	</ul>
+	<h3>Register</h3>
+	<div ng-show="error">
+		{{errorMessage}}
+	</div>
+	<form ng-submit="register()">
+		<label>Username</label>
+		<input type="text" placeholder="Username" ng-model="registerForm.username" />
+		<label>Password</label>
+		<input type="password" placeholder="Password" ng-model="registerForm.password"/>
+		<label>Confirm Password</label>
+		<input type="password" placeholder="Confirm Password" ng-model="registerForm.password2"/><br/>
+		<input type="submit" value="Register" ng-disabled="disabled"/>
+	</form>
+</div>
