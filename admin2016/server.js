@@ -10,6 +10,7 @@ var session = require('express-session');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 
+//Public variable for AdminUser Mongodb model
 AdminUser = require('./server/models/AdminUser.js');
 
 var config = require('./config/serverConfig');
@@ -48,7 +49,7 @@ passport.use(new localStrategy(AdminUser.authenticate()));
 passport.serializeUser(AdminUser.serializeUser());
 passport.deserializeUser(AdminUser.deserializeUser());
 
-//Routes=============================
+//Routes
 app.use('/api', routes); 
 app.get('*', function(req,res){
 	res.sendFile('index.html');
@@ -61,5 +62,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+//Start server on port
 app.listen(config.port);
 console.log("Server listening on port " + config.port +"\n");
