@@ -11,7 +11,7 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 
 //Public variable for AdminUser Mongodb model
-AdminUser = require('./server/models/AdminUser.js');
+AdminUser = require('./server/models/adminUser.js');
 
 var config = require('./config/serverConfig');
 var routes = require('./server/routes/index.js');
