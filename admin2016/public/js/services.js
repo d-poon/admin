@@ -1,5 +1,8 @@
 angular.module('adminService',[])
-	//Login Service
+	/*
+		Login Service
+		Majority of authentication code taken from: http://mherman.org/blog/2015/07/02/handling-user-authentication-with-the-mean-stack/
+	*/
 	.factory('AuthService', ['$q', '$timeout', '$http', function ($q, $timeout, $http){
 		var user = null;
 		
@@ -9,12 +12,15 @@ angular.module('adminService',[])
 			login: login,
 			logout: logout,
 			register: register,
+			//Function to retrieve admin users from server
 			getAdmins: function() {
 				return $http.get('/api/viewAdmins');
 			},
+			//Function to delete admin users from server
 			removeAdmin: function(id){
 				return $http.delete('/api/removeAdmin/'+id);
 			},
+			//Function to update admin users' passwords on the server
 			updatePassword: function(user){
 				return $http.put('/api/updatePassword', user);
 			}

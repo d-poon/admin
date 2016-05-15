@@ -139,7 +139,7 @@ angular.module('adminCtrl',[])
 			.success(function(data){
 				$scope.quizData = data;
 			});
-		//Push blank array onto picData array to create more img loading inputs
+		//Push blank object onto picData array to create more img loading inputs
 		$scope.addImg = function(){
 			$scope.formData.picData.push({});		
 		}
@@ -150,6 +150,7 @@ angular.module('adminCtrl',[])
 			var types = [];
 			var file, fd, filename;
 			var picArr = [];
+			//Upload images to img folder on server and push text details: filename & descriptions to array
 			for(var i = 0; i < data.picData.length; i++){
 				file = $scope.formData.picData[i].file;
 				fd = new FormData();
@@ -163,7 +164,8 @@ angular.module('adminCtrl',[])
 					});
 			}
 			data.pics = picArr;	
-						
+			
+			//Each of the tour type checkboxes converts to array of types to be sent to express
 			if(data.type.concrete){
 				types.push("concrete");
 			}
@@ -180,15 +182,16 @@ angular.module('adminCtrl',[])
 				types.push("lateral");
 			}
 			data.type = types;
+			//If no latitude or longitude provided, defaults to center of SacState 
 			if(!data.lat){
 				data.lat = "38.5651845";
 			}
 			if(!data.lon){
 				data.lon = "-121.4170459";
 			}
-			
+			//Selected quiz _id to link to this site
 			data.quizID = $scope.quizID;
-			
+			//Create new site and reset all input fields
 			Site.create(data);
 			angular.element("input[type='file']").val(null);
 			$scope.formData = {};
@@ -202,10 +205,12 @@ angular.module('adminCtrl',[])
 		var data = Share.get(); //From View Controller
 		var dataTypes = data.tourtype;
 		var scopeTypes = {};
+		//Get quizzes from database and store in $scope.quizData
 		Quiz.get()
 			.success(function(data){
 				$scope.quizData = data;
 			});
+		//Loop to pre-fill tour type checkboxes
 		for(var i = 0; i < dataTypes.length; i++){
 			if(dataTypes[i].toLowerCase() == "general"){
 				scopeTypes.general = true;
@@ -223,6 +228,7 @@ angular.module('adminCtrl',[])
 				scopeTypes.lateral = true;
 			}
 		}
+		//Initialize fields
 		$scope.formData.idno = data.idno;
 		$scope.formData.title = data.title;
 		$scope.formData.types = scopeTypes;	
@@ -233,20 +239,23 @@ angular.module('adminCtrl',[])
 		$scope.formData.oldPicData = data.pics;
 		$scope.formData.newPicData = [];
 		$scope.filenames = [];
-		
+		//Remove images from $scope.formData.oldPicData with $filter
 		$scope.removeImg = function(data){
 			var notSrc = '!' + data;
 			$scope.formData.oldPicData = $filter('filter')( $scope.formData.oldPicData, {src: notSrc});
 		}
+		//Add new images onto newPicData array
 		$scope.addImg = function(){
 			$scope.formData.newPicData.push({});		
 		}
+		//Save edits
 		$scope.saveForm = function(){
 			var scopeData = $scope.formData;
 			var types = [];
 			
 			var file, fd, filename;
 			var picArr = [];
+			//Loop appends remaining oldPicData onto new picArr array
 			for(var i = 0; i < scopeData.oldPicData.length; i++){
 				picArr.push({
 						src: scopeData.oldPicData[i].src,
@@ -254,7 +263,7 @@ angular.module('adminCtrl',[])
 						technicaldescription: scopeData.oldPicData[i].technicaldescription
 					});
 			}
-			
+			//Loop uploads new images and appends new image data to picArr array
 			for(var i = 0; i < scopeData.newPicData.length; i++){
 				file = scopeData.newPicData[i].file;
 				fd = new FormData();
@@ -269,7 +278,7 @@ angular.module('adminCtrl',[])
 			}		
 			
 			scopeData.pics = picArr;
-			
+			//Check if checkboxes are checked, and if true, push it onto types array
 			if(scopeData.types.general){
 				types.push("general");
 			}
@@ -292,15 +301,18 @@ angular.module('adminCtrl',[])
 				types.push("lateral");
 			}
 			scopeData.type = types;
+			
+			//Default latitude and longitude if lat and lon fields empty, centered at SacState
 			if(!scopeData.lat){
 				scopeData.lat = "38.5651845";
 			}
 			if(!scopeData.lon){
 				scopeData.lon = "-121.4170459";
 			}			
-			
+			//Changes quizID to selected quiz _id 
 			scopeData.quizID = $scope.quizID;
 			
+			//Update site, and clear form
 			Site.update(scopeData);
 			$scope.formData = {};
 			$scope.quizID = {};
@@ -312,14 +324,17 @@ angular.module('adminCtrl',[])
 	// Quiz View Controller
 	.controller('quizViewCtrl', ['$scope', '$http', '$route', '$location', 'Quiz','Share', function($scope, $http, $route, $location, Quiz, Share){
 		$scope.quizData = {};
+		//Get all quizzes and store in $scope.quizData
 		Quiz.get()
 			.success(function(data){
 				$scope.quizData = data;
 			});
+		//Edit quiz button, sends selected quiz object to quiz edit controller
 		$scope.editQuiz = function(quiz){
 			Share.set(quiz);
 			$location.path('/quiz/edit');
 		};
+		//Deletes quiz and refreshes page
 		$scope.removeQuiz = function(id){		
 			Quiz.remove(id);
 			$route.reload();			
@@ -329,13 +344,15 @@ angular.module('adminCtrl',[])
 	.controller('quizAddCtrl', ['$scope', '$http', 'Quiz', function($scope, $http, Quiz){
 		$scope.formData = {};
 		$scope.formData.questions = [];
-		
+	
+		//Push blank object onto questions array to create more question inputs
 		$scope.addQuestion = function(){
 			$scope.formData.questions.push({});		
 		}
-		
+		//Create a quiz function
 		$scope.submitForm = function() {
 			var data = $scope.formData;
+			//Load answer1-5 into options array
 			for(var i = 0; i < data.questions.length; i++){
 				data.questions[i].options = [];
 				data.questions[i].options.push(data.questions[i].answer1);
@@ -344,6 +361,7 @@ angular.module('adminCtrl',[])
 				data.questions[i].options.push(data.questions[i].answer4);
 				data.questions[i].options.push(data.questions[i].answer5);
 			}
+			//Create quiz and clear form
 			Quiz.create(data);
 			$scope.formData = {};	
 		}
@@ -351,15 +369,18 @@ angular.module('adminCtrl',[])
 	// Quiz Edit Controller
 	.controller('quizEditCtrl', ['$scope', '$http', 'Quiz', 'Share', function($scope, $http, Quiz, Share){
 		$scope.quizData = {};
+		//Retrieve quiz object from quiz view
 		var data = Share.get();
+		//Initialize form with retrieved data
 		$scope.quizData._id = data._id
 		$scope.quizData.name = data.name;
 		$scope.quizData.questions = data.questions;
 		
+		//Push blank object onto questions array to create more question inputs
 		$scope.addQuestion = function() {
 			$scope.quizData.questions.push({});
 		}
-		
+		//Save edits and clear form function
 		$scope.saveForm = function() {
 			var editData = $scope.quizData;
 			Quiz.update(editData);
@@ -410,7 +431,7 @@ angular.module('adminCtrl',[])
 		}
 	}])
 	/*
-			File Model Directive
+			File Model Directive for Image Uploading
 	*/
 	//Directive for file upload taken from http://stackoverflow.com/questions/32957006/nodejs-multer-angularjs-for-uploading-without-redirecting
 	.directive('fileModel', ['$parse', function($parse){ 
